@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="docstor.MAUI.DocumentsPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="DocumentsPage">
+    <VerticalStackLayout>
+        <Label
+            HorizontalOptions="Center"
+            Text="your documents"
+            VerticalOptions="Start" />
+
+        <ListView x:Name="DocumentList" ItemsSource="{Binding documents}" />
+
+        <Button
+            x:Name="AddDocument"
+            Clicked="AddDocument_Clicked"
+            HorizontalOptions="Center"
+            VerticalOptions="End" />
+
+        <Button
+            x:Name="TakePhoto"
+            Clicked="TakePhoto_Clicked"
+            HorizontalOptions="Center"
+            VerticalOptions="End" />
+
+    </VerticalStackLayout>
+</ContentPage>
