@@ -1,8 +1,8 @@
 ﻿namespace DocStor.Models
 {
-    public class File
+    public class DFile
     {
-        public Document Document { get; set; } = null!;
+        public required DDocument Document { get; set; }
         public string Id { get; set; } = Guid.NewGuid().ToString();
 
 

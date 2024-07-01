@@ -28,7 +28,8 @@ namespace DocStor.Database
         //    optionsBuilder.UseSqlite($"Data Source={_dbFilePath}");
         //}
 
-        public DbSet<Document> Documents { get; set; }
+        public DbSet<DDocument> Documents { get; set; }
+        public DbSet<DFile> DocumentFiles { get; set; }
 
         //protected override void OnModelCreating(ModelBuilder modelBuilder)
         //{

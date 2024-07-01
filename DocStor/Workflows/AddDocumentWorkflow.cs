@@ -10,8 +10,8 @@ namespace DocStor.Workflows
 
         public async Task StartFromFileAsync(string filePath)
         {
-            Document document = new();
-            document.Files.Add(new Models.File
+            DDocument document = new();
+            document.Files.Add(new DFile
             {
                 Document = document,
                 RelativeFilename = filePath
@@ -22,8 +22,8 @@ namespace DocStor.Workflows
 
         public async Task StartFromPhotoAsync(string filePath)
         {
-            Document document = new();
-            document.Files.Add(new Models.File
+            DDocument document = new();
+            document.Files.Add(new DFile
             {
                 Document = document,
                 RelativeFilename = filePath

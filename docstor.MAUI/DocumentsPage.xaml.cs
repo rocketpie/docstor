@@ -1,3 +1,4 @@
+using docstor.MAUI.ViewModel;
 using DocStor.DataServices;
 using DocStor.Workflows;
 
@@ -11,19 +12,19 @@ public partial class DocumentsPage : ContentPage
     public DocumentsPage(IDocumentsService documentsService, AddDocumentWorkflow addDocumentWorkflow)
     {
         InitializeComponent();
-        _documentsService = documentsService;
-        _addDocumentWorkflow = addDocumentWorkflow;
+        
 
         Loaded += DocumentsPage_LoadedAsync;
+        _documentsService = documentsService;
+        _addDocumentWorkflow = addDocumentWorkflow;
     }
+
+    public DocumentsPageViewModel ViewModel { get; private set; } = new DocumentsPageViewModel();
 
     private async void DocumentsPage_LoadedAsync(object? sender, EventArgs e)
     {
-        documents = await _documentsService.GetDocumentsAsync();
+        ViewModel.Documents = await _documentsService.GetDocumentsAsync();
     }
-
-    IEnumerable<DocStor.Models.Document> documents = [];
-
 
     private async void AddDocument_Clicked(object sender, EventArgs e)
     {

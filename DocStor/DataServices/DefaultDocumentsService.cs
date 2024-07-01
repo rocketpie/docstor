@@ -5,8 +5,8 @@ namespace DocStor.DataServices
 {
     public interface IDocumentsService
     {
-        public Task<IEnumerable<Document>> GetDocumentsAsync();
-        public Task AddDocumentAsync(Document newDocument);
+        public Task<IEnumerable<DDocument>> GetDocumentsAsync();
+        public Task AddDocumentAsync(DDocument newDocument);
     }
 
     public class DefaultDocumentsService(DataContext dataContext) : IDocumentsService
@@ -14,15 +14,15 @@ namespace DocStor.DataServices
     {
         private readonly DataContext _dataContext = dataContext;
 
-        public async Task AddDocumentAsync(Document newDocument)
+        public async Task AddDocumentAsync(DDocument newDocument)
         {
             _dataContext.Documents.Add(newDocument);
             await _dataContext.SaveChangesAsync();
         }
 
-        public Task<IEnumerable<Document>> GetDocumentsAsync()
+        public Task<IEnumerable<DDocument>> GetDocumentsAsync()
         {
-            IEnumerable<Document> data = _dataContext.Documents.OrderByDescending(d => d.Date);
+            IEnumerable<DDocument> data = _dataContext.Documents.OrderByDescending(d => d.Date);
             return Task.FromResult(data);
         }
     }
