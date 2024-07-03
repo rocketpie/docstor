@@ -18,6 +18,8 @@ namespace docstor.MAUI.ViewModel
             }
         }
 
+        public int ThumbnailSize { get; set; } = 10;
+
         private void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

@@ -3,6 +3,7 @@
     x:Class="docstor.MAUI.DocumentsPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:docstor.MAUI.Controls"
     xmlns:viewModel="clr-namespace:docstor.MAUI.ViewModel"
     Title="DocumentsPage">
     <VerticalStackLayout>
@@ -23,9 +24,14 @@
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition />
                                 <ColumnDefinition />
+                                <ColumnDefinition />
                             </Grid.ColumnDefinitions>
-                            <Label Grid.Column="1" Text="{Binding Name}" />
-                            <Label Grid.Column="2" Text="{Binding Id}" />
+                            <controls:ImageBase64
+                                Grid.Column="1"
+                                Base64Source="{Binding ThumbnailBase64}"
+                                MaximumWidthRequest="100" />
+                            <Label Grid.Column="2" Text="{Binding Name}" />
+                            <Label Grid.Column="3" Text="{Binding Id}" />
                         </Grid>
                     </ViewCell>
                 </DataTemplate>
