@@ -12,11 +12,12 @@ public partial class DocumentsPage : ContentPage
     public DocumentsPage(IDocumentsService documentsService, AddDocumentWorkflow addDocumentWorkflow)
     {
         InitializeComponent();
+        BindingContext = ViewModel;
         
-
-        Loaded += DocumentsPage_LoadedAsync;
         _documentsService = documentsService;
         _addDocumentWorkflow = addDocumentWorkflow;
+
+        Loaded += DocumentsPage_LoadedAsync;
     }
 
     public DocumentsPageViewModel ViewModel { get; private set; } = new DocumentsPageViewModel();
@@ -24,6 +25,7 @@ public partial class DocumentsPage : ContentPage
     private async void DocumentsPage_LoadedAsync(object? sender, EventArgs e)
     {
         ViewModel.Documents = await _documentsService.GetDocumentsAsync();
+        Headertext.Text = $"{ViewModel.Documents.Count()} documents";
     }
 
     private async void AddDocument_Clicked(object sender, EventArgs e)

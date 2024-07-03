@@ -5,16 +5,32 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:viewModel="clr-namespace:docstor.MAUI.ViewModel"
     Title="DocumentsPage">
-    <ContentPage.BindingContext>
-        <viewModel:DocumentsPageViewModel />
-    </ContentPage.BindingContext>
     <VerticalStackLayout>
         <Label
+            x:Name="Headertext"
             HorizontalOptions="Center"
-            Text="your documents"
+            Text="loading your documents..."
             VerticalOptions="Start" />
 
-        <ListView x:Name="DocumentList" ItemsSource="{Binding Documents}" />
+        <ListView x:Name="DocumentList" ItemsSource="{Binding Documents}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="1" Text="{Binding Name}" />
+                            <Label Grid.Column="2" Text="{Binding Id}" />
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
 
         <Button
             x:Name="AddDocument"
