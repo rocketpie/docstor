@@ -3,8 +3,7 @@ using DocStor.DataServices;
 using DocStor.Models;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using System.Drawing;
-using System.Drawing.Imaging;
+using Microsoft.Maui.Graphics.Platform;
 
 namespace DocStor.Workflows
 {
@@ -23,10 +22,10 @@ namespace DocStor.Workflows
                 Document = document,
                 RelativeFilename = filePath
             });
-            
+
             try
             {
-                document.ThumbnailBase64 = GenerateThumbnailBase64(filePath);
+                document.ThumbnailBase64 = await GenerateThumbnailBase64Async(filePath);
             }
             catch (Exception ex)
             {
@@ -43,18 +42,17 @@ namespace DocStor.Workflows
             return true;
         }
 
-        private string GenerateThumbnailBase64(string filePath)
+        private async Task<string> GenerateThumbnailBase64Async(string filePath)
         {
             //var extension = Path.GetExtension(filePath);
             //string[] whitelist = ["jpg", "jpeg", "png", "..."];
+            using var stream = File.OpenRead(filePath);
+            var image = PlatformImage.FromStream(stream);
 
-            var bitmap = new Bitmap(filePath);
-
-            Image.GetThumbnailImageAbort callback = new Image.GetThumbnailImageAbort(GetThumbnailAbortCallback);
-            var thumbnail = bitmap.GetThumbnailImage(_dSettings.Value.ThumbnailResolution, _dSettings.Value.ThumbnailResolution, callback, nint.Zero);
+            var thumbnail = image.Downsize(_dSettings.Value.ThumbnailResolution, _dSettings.Value.ThumbnailResolution, disposeOriginal: true);
 
             MemoryStream thumbnailStream = new();
-            thumbnail.Save(thumbnailStream, ImageFormat.Jpeg);
+            await thumbnail.SaveAsync(thumbnailStream, Microsoft.Maui.Graphics.ImageFormat.Jpeg, quality: 0.9f);
 
             thumbnailStream.Position = 0;
             return Convert.ToBase64String(thumbnailStream.ToArray());
